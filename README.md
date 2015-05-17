@@ -97,6 +97,7 @@ source.
 Section `build` is then usually used for running the build and waiting for
 result if needed.
 
+There is one special section `help` that is obviously printed when user asks for how the scenary script should be used.
 
 How to write a plan specification:
 ----------------------------------
