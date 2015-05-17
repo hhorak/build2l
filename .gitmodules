@@ -1,0 +1,3 @@
+[submodule "rhscl-rebuild-recipes"]
+	path = rhscl-rebuild-recipes
+	url = https://github.com/sclorg/rhscl-rebuild-recipes.git
