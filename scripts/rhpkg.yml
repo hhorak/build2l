@@ -1,0 +1,4 @@
+name: rhscl
+values:
+  commit_message: Rebuild
+  branch: 
