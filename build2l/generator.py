@@ -45,7 +45,9 @@ def main():
     print
     print('source ' + os.path.join(PLANS_DIR, 'lib', 'download_lib.sh'))
     print
-    print('if [ "$1" == "-h" ] || [ "$1" == "--help" ] ; then echo "Usage: `basename $0` {0} {1}" ; exit 1 ; fi'.format(" ".join(plan_pre['values'].keys()), " ".join(plan_post['values'].keys())))
+    print('if [ "$1" == "-h" ] || [ "$1" == "--help" ] ; then echo "Usage: `basename $0` skip-steps {0} {1}" ; exit 1 ; fi'.format(" ".join(plan_pre['values'].keys()), " ".join(plan_post['values'].keys())))
+
+    print('export skip_steps=${1:-0} ; shift || :')
 
     for k in plan_pre['values']:
         print('export ' + k + '=${1:-' + str(plan_pre['values'][k]) + '} ; shift || :')
@@ -56,8 +58,11 @@ def main():
     recipe = yaml.load(open(args.recipe, 'r'))
     print
 
+    step=0
     for package in recipe[args.collection]['packages']:
+        step += 1
         print('# Rebuild of package {0}'.format(package))
+        print('if [ skip_steps -lt {0} ] ; then'.format(step))
 
         if '@' in package:
             (package, collection) = package.split('@')
@@ -68,6 +73,7 @@ def main():
         print ("# here we do some SPEC adjustments")
         handle_script(args.post, EVENT_POST, package, plan_post['values'])
         print("popd")
+        print('fi')
         print
 
 if __name__ == '__main__':
