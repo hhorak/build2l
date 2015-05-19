@@ -1,0 +1,5 @@
+name: mock
+values:
+  local_repo: /home/hhorak/repo-{{ collection }}
+  mock: rhel-7-{{ collection }}
+  dist_tag: el7

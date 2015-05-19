@@ -1,0 +1,6 @@
+name: copr
+values:
+  upload_url: fedorapeople.org:public_html/build2l/
+  download_url: https://fedorapeople.org/~hhorak/build2l/
+  copr: rhscl/{{ collection }}
+  dist_tag: el7

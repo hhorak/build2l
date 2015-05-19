@@ -1,5 +1,4 @@
-
-download_file_smart() {
+get_url_smart() {
   if [ $# -eq 0 ] ; then
     echo "Usage: `basename $0` http://something.com/.*.rpm"
     exit 1
@@ -12,11 +11,17 @@ download_file_smart() {
     file_pattern=$(basename $url)
 
     # get srpm path
-    curl -s ${dirurl} | grep -Po '(?<=href=")[^"]*' | grep -e "${file_pattern}$" | while read srpmpath ; do
+    curl -Ls ${dirurl} | grep -Po '(?<=href=")[^"]*' | grep -e "${file_pattern}$" | while read srpmpath ; do
       [[ $srpmpath =~ ^http(s)?:// ]] || srpmpath="$dirurl/$srpmpath"
-      echo -n "Downloading $srpmpath ..."
-      wget -q "$srpmpath"
-      echo " DONE"
+      echo "$srpmpath"
     done
+  done
+}
+
+download_file_smart() {
+  get_url_smart "$@" | while read srpmpath ; do
+    echo -n "Downloading $srpmpath ..."
+    wget -q "$srpmpath"
+    echo " DONE"
   done
 }

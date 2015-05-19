@@ -50,7 +50,7 @@ Several examples how the script may be generated:
 rebuild mock python33.yml >python33-mock.sh
 rebuild rhpkg python33.yml >python33-rhpkg.sh
 rebuild centpkg python33.yml --pkgnum=3 >python33-centpkg.sh
-rebuild copr --srpm-ssh=fedorepeople.org:public_html/colname \
+rebuild copr --srpm-ssh=fedorapeople.org:public_html/colname \
              --srpm-wget=myname.fedorapeople.org/colname python33.yml \
              >python33-copr.sh
 ```
